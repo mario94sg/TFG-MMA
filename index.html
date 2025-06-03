@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Index</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="js/Index.js"></script>
+  <link rel="stylesheet" href="css/Index.css">
+  <style>
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <h1 class="text-center mt-4">TZINAVOS TEAM MMA</h1>
+
+  <div class="text-center mt-4">
+    <button id="btnLogin" class="btn btn-primary me-2" onclick="mostrarFormulario('login')">Login</button>
+    <button id="btnRegistro" class="btn btn-secondary" onclick="mostrarFormulario('registro')">Registro</button>
+  </div>
+
+  <!-- Modal de Mensajes -->
+  <div class="modal fade" id="modalMensaje" tabindex="-1" aria-labelledby="modalMensajeLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header bg-primary text-white rounded-top-4">
+          <h5 class="modal-title" id="modalMensajeLabel">Mensaje</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body text-center" id="contenidoModalMensaje">
+          <!-- contenido dinámico -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2FA -->
+  <div class="modal fade" id="modal2FA" tabindex="-1" aria-labelledby="modal2FALabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header bg-danger text-white rounded-top-4">
+          <h5 class="modal-title" id="modal2FALabel">Verificación en dos pasos</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p>Hemos enviado un código de 6 dígitos a tu correo. Por favor, introdúcelo:</p>
+          <input type="text" id="codigo2FA" maxlength="6" class="form-control text-center fw-bold fs-4 mb-3" placeholder="######" pattern="\d{6}">
+          <div class="invalid-feedback">El código debe tener exactamente 6 dígitos.</div>
+          <button id="verificarCodigo" class="btn btn-danger w-100">Verificar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <!-- Login -->
+    <form id="formLogin" method="POST">
+      <h3 class="text-center">Iniciar Sesión</h3>
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" id="emailLogin" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Contraseña</label>
+        <input type="password" name="contrasena" id="contrasenaLogin" class="form-control" required>
+      </div>
+      <div class="d-grid">
+        <button type="submit" id="login" class="btn btn-success">Entrar</button>
+      </div>
+    </form>
+
+    <!-- Registro -->
+    <form id="formRegistro" method="POST" class="hidden">
+      <h3 class="text-center">Registro</h3>
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" name="nombre" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Contraseña</label>
+        <input type="password" name="contrasena" class="form-control" required>
+      </div>
+      <div class="d-grid">
+        <button type="button" id="registrarse" class="btn btn-primary">Registrarse</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
