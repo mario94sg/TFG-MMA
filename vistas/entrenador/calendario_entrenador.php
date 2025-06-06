@@ -1,7 +1,7 @@
 <?php
 $tipoEsperado = "entrenador";
-require_once "../php/verificar_sesion.php";
-include "../php/modal_logout.php"; 
+require_once "../../controlador/verificar_sesion.php";
+include "../componentes/modal_logout.php";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,11 +13,11 @@ include "../php/modal_logout.php";
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="../css/calendario_entrenador.css" />
+  <link rel="stylesheet" href="../../css/calendario_entrenador.css" />
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/es.js"></script>
-  <script src="../js/calendario_entrenador.js"></script>
+  <script src="../../js/calendario_entrenador.js"></script>
 </head>
 
 <body>
@@ -30,6 +30,7 @@ include "../php/modal_logout.php";
       <a href="calendario_entrenador.php" class="btn btn-primary me-2">Calendario</a>
       <a href="ejercicios_entrenador.php" class="btn btn-outline-primary me-2">Ejercicios</a>
       <a href="foro_entrenador.php" class="btn btn-outline-primary">Foro</a>
+      <a href="nutricion_entrenador.php" class="btn btn-outline-primary">Nutrición</a>
       <button class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#logoutModal">
         Cerrar sesión
       </button>
@@ -62,6 +63,39 @@ include "../php/modal_logout.php";
       <tbody id="tabla-eventos"></tbody>
     </table>
   </div>
+  <!-- Modales -->
+  <div class="modal fade" id="modalMensaje" tabindex="-1" aria-labelledby="modalMensajeLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="modalMensajeLabel">Mensaje</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body" id="modalCuerpoMensaje"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-labelledby="modalConfirmacionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="modalConfirmacionLabel">Confirmar acción</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body" id="modalCuerpoConfirmacion">¿Estás seguro de que deseas continuar?</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">Sí, eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>

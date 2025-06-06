@@ -20,7 +20,7 @@ $(document).ready(function () {
     const id = $(this).data("id");
 
     $.ajax({
-      url: "../php/eliminarAlumno.php",
+      url: "../../modelo/eliminarAlumno.php",
       type: "POST",
       data: { id },
       success: function () {
@@ -45,7 +45,7 @@ function mostrarModalFeedback(titulo, mensaje) {
 
 function cargarAlumnos() {
   $.ajax({
-    url: "../php/selectAlumnos.php",
+    url: "../../modelo/selectAlumnos.php",
     type: "GET",
     dataType: "json",
     success: function (data) {
@@ -87,7 +87,7 @@ function agregarAlumno() {
   const contrasena = $("#contrasena").val();
 
   $.ajax({
-    url: "../php/agregarAlumno.php",
+    url: "../../modelo/agregarAlumno.php",
     type: "POST",
     data: { nombre, email, contrasena },
     success: function (response) {

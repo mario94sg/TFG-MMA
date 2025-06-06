@@ -10,7 +10,7 @@ $(document).ready(function () {
       right: 'dayGridMonth,timeGridWeek'
     },
     events: {
-      url: '../php/obtener_eventos.php',
+      url: '../../modelo/obtener_eventos.php',
       method: 'GET',
       failure: function () {
         alert('Error al cargar eventos');

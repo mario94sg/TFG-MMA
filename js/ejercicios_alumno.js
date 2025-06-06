@@ -1,9 +1,11 @@
 $(document).ready(function () {
+  let idEjercicioACompletar = null;
+
   cargarEjercicios();
 
   function cargarEjercicios() {
     $.ajax({
-      url: "../php/gestionar_ejercicios.php",
+      url: "../../modelo/gestionar_ejercicios.php",
       type: "GET",
       data: { accion: "listar", rol: "alumno" },
       dataType: "json",
@@ -38,16 +40,26 @@ $(document).ready(function () {
     });
   }
 
+  
   $(document).on("click", ".marcar-completado", function () {
-    const id = $(this).data("id");
-    if (!confirm("¿Estás seguro de marcar este ejercicio como completado?")) return;
+    idEjercicioACompletar = $(this).data("id");
+    const modal = new bootstrap.Modal(document.getElementById("modalConfirmarCompletar"));
+    modal.show();
+  });
+
+
+  $("#confirmarCompletar").on("click", function () {
+    if (!idEjercicioACompletar) return;
 
     $.ajax({
-      url: "../php/gestionar_ejercicios.php",
+      url: "../../modelo/gestionar_ejercicios.php",
       type: "POST",
-      data: { accion: "completar", id_ejercicio: id },
+      data: { accion: "completar", id_ejercicio: idEjercicioACompletar },
       dataType: "json",
       success: function (response) {
+        const modal = bootstrap.Modal.getInstance(document.getElementById("modalConfirmarCompletar"));
+        modal.hide();
+
         if (response.estado === "ok") {
           cargarEjercicios();
         } else {

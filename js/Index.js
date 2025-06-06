@@ -27,7 +27,7 @@ function cargarEventos() {
     $('#login').click(function (e) {
         e.preventDefault();
         $.ajax({
-            url: './php/procesar_login.php',
+            url: './modelo/procesar_login.php',
             type: 'POST',
             dataType: 'json',
             data: {
@@ -61,16 +61,16 @@ function cargarEventos() {
         }
 
         $.ajax({
-            url: './php/verificar_2fa.php',
+            url: './controlador/verificar_2fa.php',
             type: 'POST',
             dataType: 'json',
             data: { codigo: codigo },
             success: function (res) {
                 if (res.validado) {
                     if (res.tipo === 'entrenador') {
-                        window.location.href = './vistas/vista_entrenador.php';
+                        window.location.href = './vistas/entrenador/vista_entrenador.php';
                     } else if (res.tipo === 'alumno') {
-                        window.location.href = './vistas/vista_alumno.php';
+                        window.location.href = './vistas/alumno/vista_alumno.php';
                     } else {
                         mostrarModalMensaje('Tipo de usuario desconocido.', 'danger');
                     }
@@ -90,7 +90,7 @@ function cargarEventos() {
         const datosRegistro = $('#formRegistro').serialize();
 
         $.ajax({
-            url: './php/procesar_registro.php',
+            url: './modelo/procesar_registro.php',
             type: 'POST',
             dataType: 'json',
             data: datosRegistro,

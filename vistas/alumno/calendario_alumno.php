@@ -1,7 +1,7 @@
 <?php
 $tipoEsperado = "alumno";
-require_once "../php/verificar_sesion.php";
-include "../php/modal_logout.php"; 
+require_once "../../controlador/verificar_sesion.php";
+include "../componentes/modal_logout.php";
 ?>
 
 <!DOCTYPE html>
@@ -16,8 +16,8 @@ include "../php/modal_logout.php";
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script type="text/javascript" src="../js/calendario_alumno.js"></script>
-  <link rel="stylesheet" href="../css/calendario_alumno.css" />
+  <script type="text/javascript" src="../../js/calendario_alumno.js"></script>
+  <link rel="stylesheet" href="../../css/calendario_alumno.css" />
   <!-- FullCalendar 5 -->
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
@@ -34,6 +34,7 @@ include "../php/modal_logout.php";
       <a href="calendario_alumno.php" class="btn btn-primary me-2">Calendario</a>
       <a href="ejercicios_alumno.php" class="btn btn-outline-primary me-2">Ejercicios</a>
       <a href="foro_alumno.php" class="btn btn-outline-primary">Foro</a>
+      <a href="nutricion_alumno.php" class="btn btn-outline-primary">Nutrición</a>
       <button class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#logoutModal">
         Cerrar sesión
       </button>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../php/database.php';
+require_once '../modelo/database.php';
 
 if (!isset($_SESSION['id_usuario']) || $_SESSION['tipo'] !== 'alumno') {
     header("Location: ../index.html");
@@ -9,12 +9,18 @@ if (!isset($_SESSION['id_usuario']) || $_SESSION['tipo'] !== 'alumno') {
 
 $id_usuario = $_SESSION['id_usuario'];
 
-$sql = "SELECT nombre, email FROM usuarios WHERE id_usuario = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id_usuario);
-$stmt->execute();
-$result = $stmt->get_result();
-$usuario = $result->fetch_assoc();
+try {
+    $stmt = $conn->prepare("SELECT nombre, email FROM usuarios WHERE id_usuario = :id");
+    $stmt->execute([':id' => $id_usuario]);
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$usuario) {
+        throw new Exception("Usuario no encontrado.");
+    }
+} catch (Exception $e) {
+    echo "<p>Error al cargar datos: " . htmlspecialchars($e->getMessage()) . "</p>";
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +66,7 @@ $usuario = $result->fetch_assoc();
         </form>
     </div>
 
-    <!-- Modal Bootstrap -->
+    <!-- Modal -->
     <div class="modal fade" id="modalMensaje" tabindex="-1" aria-labelledby="modalMensajeLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

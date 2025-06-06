@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     $("#formNoticia").on("submit", function (e) {
         e.preventDefault();
-        $.post("../php/gestionar_noticias.php", $(this).serialize(), function (res) {
+        $.post("../../modelo/gestionar_noticias.php", $(this).serialize(), function (res) {
             if (res.success) {
                 $("#formNoticia")[0].reset();
                 cargarNoticias();
@@ -35,7 +35,7 @@ $(document).ready(function () {
             contenido: $("#edit_contenido").val()
         };
 
-        $.post("../php/gestionar_noticias.php", datos, function (res) {
+        $.post("../../modelo/gestionar_noticias.php", datos, function (res) {
             if (res.success) {
                 bootstrap.Modal.getInstance(document.getElementById('modalEditar')).hide();
                 cargarNoticias();
@@ -51,10 +51,10 @@ $(document).ready(function () {
         modal.show();
     });
 
-    // Confirmar eliminación
+
     $("#confirmarEliminar").on("click", function () {
         const id = $("#delete_id_noticia").val();
-        $.post("../php/gestionar_noticias.php", { accion: "eliminar", id_noticia: id }, function (res) {
+        $.post("../../modelo/gestionar_noticias.php", { accion: "eliminar", id_noticia: id }, function (res) {
             if (res.success) {
                 bootstrap.Modal.getInstance(document.getElementById('modalEliminar')).hide();
                 cargarNoticias();
@@ -63,7 +63,7 @@ $(document).ready(function () {
     });
 
     function cargarNoticias() {
-        $.getJSON("../php/gestionar_noticias.php", { accion: "obtener" }, function (noticias) {
+        $.getJSON("../../modelo/gestionar_noticias.php", { accion: "obtener" }, function (noticias) {
             const contenedor = $("#listaNoticias");
             contenedor.empty();
             noticias.forEach(n => {

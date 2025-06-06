@@ -9,7 +9,7 @@ $(document).ready(function () {
       right: "dayGridMonth,timeGridWeek",
     },
     events: {
-      url: "../php/gestionar_eventos.php",
+      url: "../../modelo/gestionar_eventos.php",
       method: "GET",
     },
     eventColor: "#1976d2",
@@ -37,8 +37,8 @@ $(document).ready(function () {
       fecha_evento_fin: $("#fecha_fin").val(),
     };
 
-    $.post("../php/gestionar_eventos.php", { action: "guardar", ...datos }, function (response) {
-      alert("Evento guardado correctamente");
+    $.post("../../modelo/gestionar_eventos.php", { action: "guardar", ...datos }, function (response) {
+      mostrarModalMensaje("Evento guardado correctamente");
       calendar.refetchEvents();
       cargarEventosTabla();
       $("#form-evento")[0].reset();
@@ -46,7 +46,7 @@ $(document).ready(function () {
   });
 
   function cargarEventosTabla() {
-    $.get("../php/gestionar_eventos.php", function (eventos) {
+    $.get("../../modelo/gestionar_eventos.php", function (eventos) {
       const tabla = $("#tabla-eventos").empty();
       eventos.forEach((ev) => {
         tabla.append(`
@@ -73,14 +73,30 @@ $(document).ready(function () {
       });
 
       $(".btn-eliminar").click(function () {
-        if (confirm("¿Seguro que quieres eliminar este evento?")) {
-          $.post("../php/gestionar_eventos.php", { action: "eliminar", id_evento: $(this).data("id") }, function () {
-            alert("Evento eliminado");
-            calendar.refetchEvents();
-            cargarEventosTabla();
-          });
-        }
+        eventoAEliminar = $(this).data("id");
+        $("#modalCuerpoConfirmacion").text("¿Seguro que quieres eliminar este evento?");
+        $("#modalConfirmacion").modal("show");
       });
     }, "json");
   }
+
+ 
+  function mostrarModalMensaje(mensaje) {
+    $("#modalCuerpoMensaje").text(mensaje);
+    $("#modalMensaje").modal("show");
+  }
+
+ 
+  let eventoAEliminar = null;
+  $("#btnConfirmarEliminar").click(function () {
+    if (eventoAEliminar) {
+      $.post("../../modelo/gestionar_eventos.php", { action: "eliminar", id_evento: eventoAEliminar }, function () {
+        mostrarModalMensaje("Evento eliminado correctamente");
+        calendar.refetchEvents();
+        cargarEventosTabla();
+        eventoAEliminar = null;
+        $("#modalConfirmacion").modal("hide");
+      });
+    }
+  });
 });

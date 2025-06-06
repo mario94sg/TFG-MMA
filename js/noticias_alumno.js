@@ -2,7 +2,7 @@ $(document).ready(function () {
     cargarNoticias();
 
     function cargarNoticias() {
-        $.getJSON("../php/gestionar_noticias.php", { accion: "obtener" }, function (noticias) {
+        $.getJSON("../../modelo/gestionar_noticias.php", { accion: "obtener" }, function (noticias) {
             const contenedor = $("#listaNoticias");
             contenedor.empty();
 

@@ -1,7 +1,7 @@
 <?php
 $tipoEsperado = "entrenador";
-require_once "../php/verificar_sesion.php";
-include "../php/modal_logout.php"; 
+require_once "../../controlador/verificar_sesion.php";
+include "../componentes/modal_logout.php";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,8 +14,8 @@ include "../php/modal_logout.php";
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" src="../js/noticias_entrenador.js"></script>
-  <link rel="stylesheet" href="../css/noticias_entrenador.css">
+  <script type="text/javascript" src="../../js/noticias_entrenador.js"></script>
+  <link rel="stylesheet" href="../../css/noticias_entrenador.css">
 </head>
 
 <body>
@@ -28,12 +28,12 @@ include "../php/modal_logout.php";
       <a href="calendario_entrenador.php" class="btn btn-outline-primary me-2">Calendario</a>
       <a href="ejercicios_entrenador.php" class="btn btn-outline-primary me-2">Ejercicios</a>
       <a href="foro_entrenador.php" class="btn btn-outline-primary">Foro</a>
+      <a href="nutricion_entrenador.php" class="btn btn-outline-primary">Nutrición</a>
       <button class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#logoutModal">
         Cerrar sesión
       </button>
     </nav>
 
-    <!-- Formulario para nueva noticia -->
     <div class="card mb-4">
       <div class="card-header bg-primary text-white">Publicar nueva noticia</div>
       <div class="card-body">
@@ -52,10 +52,9 @@ include "../php/modal_logout.php";
       </div>
     </div>
 
-    <!-- Blog de noticias -->
     <div id="listaNoticias" class="row row-cols-1 g-4">
     </div>
-    <!-- Modal para editar noticia -->
+    <!-- Modales -->
     <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -84,7 +83,6 @@ include "../php/modal_logout.php";
       </div>
     </div>
 
-    <!-- Modal de confirmación de eliminación -->
     <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">

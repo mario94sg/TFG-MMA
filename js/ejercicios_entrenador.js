@@ -21,7 +21,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "POST",
-      url: "../php/gestionar_ejercicios.php",
+      url: "../../modelo/gestionar_ejercicios.php",
       data: {
         accion: "asignar",
         titulo,
@@ -38,7 +38,6 @@ $(document).ready(function () {
     });
   });
 
-  // ELIMINAR EJERCICIO
   let ejercicioAEliminar = null;
 
   $(document).on("click", ".btn-eliminar-ejercicio", function () {
@@ -50,7 +49,7 @@ $(document).ready(function () {
     if (ejercicioAEliminar) {
       $.ajax({
         type: "POST",
-        url: "../php/gestionar_ejercicios.php",
+        url: "../../modelo/gestionar_ejercicios.php",
         data: { accion: "eliminar", id_ejercicio: ejercicioAEliminar },
         success: function () {
           $("#modalEliminarEjercicio").modal("hide");
@@ -63,10 +62,9 @@ $(document).ready(function () {
     }
   });
 
-  // CARGAR ALUMNOS
   function cargarAlumnos() {
     $.ajax({
-      url: "../php/obtener_alumnos_registrados.php",
+      url: "../../modelo/obtener_alumnos_registrados.php",
       method: "GET",
       dataType: "json",
       success: function (alumnos) {
@@ -89,10 +87,9 @@ $(document).ready(function () {
     });
   }
 
-  // CARGAR EJERCICIOS
   function cargarEjercicios() {
     $.ajax({
-      url: "../php/gestionar_ejercicios.php",
+      url: "../../modelo/gestionar_ejercicios.php",
       method: "GET",
       data: {
         accion: "listar"

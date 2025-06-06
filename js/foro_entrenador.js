@@ -1,81 +1,154 @@
 $(document).ready(function () {
-  cargarMensajes();
+  const mostrarModal = (mensaje) => {
+    $("#modalAlertBody").text(mensaje);
+    const modal = new bootstrap.Modal(document.getElementById("modalAlert"));
+    modal.show();
+  };
 
-  // Manejo del formulario
-  $("#form-mensaje").submit(function (e) {
-    e.preventDefault();
-    const contenido = $("#mensaje").val().trim();
+  const mostrarConfirmacion = (mensaje, callback) => {
+    $("#modalConfirmBody").text(mensaje);
+    const modal = new bootstrap.Modal(document.getElementById("modalConfirm"));
 
-    if (contenido !== "") {
-      $.post("../php/gestionar_foro.php", {
-        accion: "insertar",
-        contenido: contenido
-      }, function (respuesta) {
-        if (respuesta.estado === "ok") {
-          $("#mensaje").val("");
-          cargarMensajes();
-        } else {
-          alert("Error al publicar el mensaje: " + (respuesta.error || "desconocido"));
-        }
-      }, "json");
+    $("#btnConfirmarEliminar").off("click").on("click", function () {
+      modal.hide();
+      callback();
+    });
+
+    modal.show();
+  };
+
+  function cargarAsuntos() {
+    $.post("../../modelo/gestionar_foro.php", { accion: "obtener_asuntos" }, function (res) {
+      if (res.success) {
+        $("#asuntos-container").empty();
+        res.asuntos.forEach((asunto) => {
+          const btn = $(`<button class="btn btn-outline-secondary" data-id="${asunto.id_asunto}">${asunto.titulo}</button>`);
+          btn.click(() => toggleConversacion(asunto.id_asunto, asunto.titulo));
+          $("#asuntos-container").append(btn);
+        });
+      }
+    }, "json");
+  }
+
+  function toggleConversacion(id_asunto, titulo) {
+    const cardId = `asunto-${id_asunto}`;
+    const existente = $(`#${cardId}`);
+    if (existente.length) {
+      existente.toggle();
+      return;
     }
-  });
 
-  // Guardar ID del mensaje a eliminar
-  let mensajeAEliminar = null;
-
-  $(document).on("click", ".btn-eliminar", function () {
-    mensajeAEliminar = $(this).data("id");
-    $("#confirmarEliminarModal").modal("show");
-  });
-
-  // Confirmar eliminación
-  $("#btn-confirmar-eliminar").click(function () {
-    if (mensajeAEliminar) {
-      $.post("../php/gestionar_foro.php", {
-        accion: "eliminar",
-        id_mensaje: mensajeAEliminar
-      }, function (respuesta) {
-        if (respuesta.estado === "ok") {
-          cargarMensajes();
-          $("#confirmarEliminarModal").modal("hide");
-        } else {
-          alert("Error al eliminar: " + (respuesta.error || "desconocido"));
-        }
-      }, "json");
-    }
-  });
-
-  // Función para cargar mensajes
-  function cargarMensajes() {
-    $.get("../php/gestionar_foro.php", {
-      accion: "listar"
-    }, function (mensajes) {
-      const contenedor = $("#lista-mensajes");
-      contenedor.empty();
-
-      mensajes.forEach(msg => {
-        const esPropio = msg.id_usuario == userId;
-        const fecha = new Date(msg.fecha_mensaje);
-        const hora = fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        const dia = fecha.toLocaleDateString();
-
-        const card = `
-          <div class="card mb-3">
-            <div class="card-header d-flex justify-content-between">
-              <strong>${msg.nombre}</strong>
-              <small>${hora} - ${dia}</small>
-            </div>
-            <div class="card-body">
-              <p class="card-text">${msg.contenido}</p>
-              ${esPropio ? `<button class="btn btn-sm btn-danger btn-eliminar" data-id="${msg.id_mensaje}">Eliminar</button>` : ""}
-            </div>
+    const card = $(`
+      <div class="card mb-3" id="${cardId}">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">${titulo}</h5>
+          <div>
+            <button class="btn btn-sm btn-danger eliminar-asunto" data-id="${id_asunto}">Eliminar</button>
           </div>
-        `;
-        contenedor.append(card);
+        </div>
+        <div class="card-body">
+          <form class="form-enviar-mensaje mb-3" data-id="${id_asunto}">
+            <textarea class="form-control mb-2" placeholder="Escribe un mensaje..." required></textarea>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </form>
+          <div class="mensajes"></div>
+        </div>
+      </div>
+    `);
+
+    $("#conversaciones").append(card);
+    cargarMensajes(id_asunto);
+
+    // Eliminar asunto con modal de confirmación
+    card.find(".eliminar-asunto").click(function () {
+      mostrarConfirmacion("¿Eliminar este asunto y todos sus mensajes?", () => {
+        $.post("../../modelo/gestionar_foro.php", {
+          accion: "eliminar_asunto",
+          id_asunto
+        }, function (res) {
+          if (res.success) {
+            $(`#${cardId}`).remove();
+            cargarAsuntos();
+            mostrarModal("Asunto eliminado correctamente");
+          }
+        }, "json");
       });
-    }, "json").fail(function (xhr) {
-      console.error("Error al cargar mensajes:", xhr.responseText);
+    });
+
+   
+    card.find(".form-enviar-mensaje").submit(function (e) {
+      e.preventDefault();
+      const mensajeInput = $(this).find("textarea");
+      const mensaje = mensajeInput.val();
+      const id = $(this).data("id");
+
+      $.post("../../modelo/gestionar_foro.php", {
+        accion: "enviar_mensaje",
+        mensaje,
+        id_asunto: id
+      }, function (res) {
+        if (res.success) {
+          mensajeInput.val("");
+          cargarMensajes(id);
+        }
+      }, "json");
     });
   }
+
+  function cargarMensajes(id_asunto) {
+    $.post("../../modelo/gestionar_foro.php", { accion: "obtener_mensajes", id_asunto }, function (res) {
+      if (res.success) {
+        const container = $(`#asunto-${id_asunto} .mensajes`);
+        container.empty();
+        res.mensajes.reverse().forEach((m) => {
+          const fecha = new Date(m.fecha_mensaje).toLocaleString();
+          const msg = $(`
+            <div class="border rounded p-2 mb-2">
+              <strong>${m.nombre}:</strong> ${m.contenido}
+              <div class="text-end small text-muted">${fecha}</div>
+              <button class="btn btn-sm btn-danger mt-1 eliminar-mensaje" data-id="${m.id_mensaje}">Eliminar</button>
+            </div>
+          `);
+          msg.find(".eliminar-mensaje").click(function () {
+            const id_mensaje = $(this).data("id");
+            mostrarConfirmacion("¿Estás seguro de que deseas eliminar este mensaje?", () => {
+              $.post("../../modelo/gestionar_foro.php", {
+                accion: "eliminar_mensaje",
+                id_mensaje
+              }, function (r) {
+                if (r.success) {
+                  cargarMensajes(id_asunto);
+                  mostrarModal("Mensaje eliminado correctamente");
+                }
+              }, "json");
+            });
+          });
+          container.append(msg);
+        });
+      }
+    }, "json");
+  }
+
+  
+  $("#form-nuevo-asunto").submit(function (e) {
+    e.preventDefault();
+    const titulo = $("#titulo_asunto").val();
+    const mensaje = $("#mensaje_inicial").val();
+
+    $.post("../../modelo/gestionar_foro.php", {
+      accion: "crear_asunto",
+      titulo,
+      mensaje
+    }, function (res) {
+      if (res.success) {
+        mostrarModal("Asunto creado correctamente");
+        $("#titulo_asunto, #mensaje_inicial").val("");
+        cargarAsuntos();
+      } else {
+        mostrarModal(res.error || "Error al crear asunto");
+      }
+    }, "json");
+  });
+
+  cargarAsuntos();
 });

@@ -10,7 +10,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <a href="../php/logout.php" class="btn btn-danger">Cerrar sesión</a>
+        <a href="../../controlador/logout.php" class="btn btn-danger">Cerrar sesión</a>
       </div>
     </div>
   </div>

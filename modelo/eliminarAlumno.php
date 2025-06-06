@@ -17,13 +17,17 @@ if (!isset($_POST['id'])) {
 
 $id = intval($_POST['id']);
 
-$sql = "DELETE FROM usuarios WHERE id_usuario = ? AND tipo = 'alumno'";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id);
+try {
+    $stmt = $conn->prepare("DELETE FROM usuarios WHERE id_usuario = :id AND tipo = 'alumno'");
+    $stmt->execute([':id' => $id]);
 
-if ($stmt->execute()) {
-    echo "Alumno eliminado.";
-} else {
+    if ($stmt->rowCount() > 0) {
+        echo "Alumno eliminado.";
+    } else {
+        http_response_code(404);
+        echo "No se encontró el alumno o no se pudo eliminar.";
+    }
+} catch (PDOException $e) {
     http_response_code(500);
-    echo "Error al eliminar alumno: " . $stmt->error;
+    echo "Error al eliminar alumno: " . $e->getMessage();
 }

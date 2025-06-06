@@ -30,7 +30,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: 'procesar_actualizacion.php',
+            url: '../modelo/procesar_actualizacion.php',
             type: 'POST',
             dataType: 'json',
             data: { nombre, contrasena, correo },

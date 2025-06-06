@@ -5,19 +5,21 @@ require_once '../mail/Envios.php';
 
 if (!isset($_SESSION['id_usuario']) || $_SESSION['tipo'] !== 'entrenador') {
     http_response_code(403);
-    return "Acceso denegado.";
+    echo "Acceso denegado.";
     exit();
 }
 
 if (!isset($_POST['nombre'], $_POST['email'], $_POST['contrasena'])) {
     http_response_code(400);
-    return "Datos incompletos.";
+    echo "Datos incompletos.";
     exit();
 }
+
 $nombre = trim($_POST['nombre']);
 $email = trim($_POST['email']);
 $contrasenaPlano = trim($_POST['contrasena']);
 $contrasenaHash = password_hash($contrasenaPlano, PASSWORD_DEFAULT);
+
 
 $asunto = "👊 ¡Bienvenido a MMA Tzinavos Team! Tu cuenta ha sido creada";
 $mensaje = '
@@ -46,18 +48,23 @@ $mensaje = '
 </body>
 </html>';
 
-$sql = "INSERT INTO usuarios (nombre, email, contrasena, tipo, registrado) VALUES (?, ?, ?, 'alumno', false)";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("sss", $nombre, $email, $contrasenaHash);
+try {
+    $sql = "INSERT INTO usuarios (nombre, email, contrasena, tipo, registrado) 
+            VALUES (:nombre, :email, :contrasena, 'alumno', false)";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([
+        ':nombre' => $nombre,
+        ':email' => $email,
+        ':contrasena' => $contrasenaHash
+    ]);
 
-if ($stmt->execute()) {
     $envios = new Envios();
     if ($envios->enviarMail($email, $asunto, $mensaje)) {
         echo "Alumno agregado y correo enviado correctamente.";
     } else {
         echo "Alumno agregado, pero error al enviar correo.";
     }
-} else {
+} catch (PDOException $e) {
     http_response_code(500);
-    echo "Error al agregar alumno: " . $stmt->error;
+    echo "Error al agregar alumno: " . $e->getMessage();
 }
