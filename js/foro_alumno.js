@@ -8,25 +8,81 @@ $(document).ready(function () {
   let mensajeAEliminar = null;
   let idAsuntoActivo = null;
 
+  // === NUEVAS FUNCIONES DE GESTIÓN DE ASUNTOS ACTIVOS ===
+  const getAsuntosActivos = () => {
+    const activos = localStorage.getItem("asuntos_activos_alumno");
+    return activos ? JSON.parse(activos) : [];
+  };
+
+  const setAsuntosActivos = (activos) => {
+    localStorage.setItem("asuntos_activos_alumno", JSON.stringify(activos));
+  };
+
+  const agregarAsuntoActivo = (id) => {
+    const activos = getAsuntosActivos();
+    if (!activos.includes(id)) {
+      activos.push(id);
+      setAsuntosActivos(activos);
+    }
+  };
+
+  const quitarAsuntoActivo = (id) => {
+    const activos = getAsuntosActivos().filter((a) => a !== id);
+    setAsuntosActivos(activos);
+  };
+
   function cargarAsuntos() {
     $.post("../../modelo/gestionar_foro.php", { accion: "obtener_asuntos" }, function (res) {
       if (res.success) {
         $("#asuntos-container").empty();
+        const asuntosActivos = getAsuntosActivos();
+
         res.asuntos.forEach((asunto) => {
-          const btn = $(`<button class="btn btn-outline-secondary" data-id="${asunto.id_asunto}">${asunto.titulo}</button>`);
-          btn.click(() => toggleConversacion(asunto.id_asunto, asunto.titulo));
+          const btn = $(`<button class="btn me-2" data-id="${asunto.id_asunto}">${asunto.titulo}</button>`);
+          if (asuntosActivos.includes(asunto.id_asunto)) {
+            btn.addClass("btn-success");
+          } else {
+            btn.addClass("btn-outline-secondary");
+          }
+
+          btn.click(() => toggleConversacion(asunto.id_asunto, asunto.titulo, btn));
           $("#asuntos-container").append(btn);
+        });
+
+        // Reabrir los asuntos activos
+        asuntosActivos.forEach(id => {
+          const asunto = res.asuntos.find(a => a.id_asunto === id);
+          if (asunto) {
+            toggleConversacion(asunto.id_asunto, asunto.titulo, $(`button[data-id='${asunto.id_asunto}']`), true);
+          }
         });
       }
     }, "json");
   }
 
-  function toggleConversacion(id_asunto, titulo) {
+  function toggleConversacion(id_asunto, titulo, boton, forzado = false) {
     idAsuntoActivo = id_asunto;
     const cardId = `asunto-${id_asunto}`;
     const existente = $(`#${cardId}`);
-    if (existente.length) {
+
+    if (existente.length && !forzado) {
       existente.toggle();
+      const visible = existente.is(":visible");
+
+      if (visible) {
+        boton.removeClass("btn-outline-secondary").addClass("btn-success");
+        agregarAsuntoActivo(id_asunto);
+      } else {
+        boton.removeClass("btn-success").addClass("btn-outline-secondary");
+        quitarAsuntoActivo(id_asunto);
+      }
+
+      return;
+    }
+
+    if (existente.length && forzado) {
+      existente.show();
+      boton.removeClass("btn-outline-secondary").addClass("btn-success");
       return;
     }
 
@@ -45,8 +101,10 @@ $(document).ready(function () {
       </div>
     `);
 
-    $("#conversaciones").append(card);
+    $("#conversaciones").prepend(card);
     cargarMensajes(id_asunto);
+    agregarAsuntoActivo(id_asunto);
+    boton.removeClass("btn-outline-secondary").addClass("btn-success");
 
     card.find(".form-enviar-mensaje").submit(function (e) {
       e.preventDefault();

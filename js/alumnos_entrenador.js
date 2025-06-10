@@ -2,15 +2,14 @@ $(document).ready(function () {
   cargarAlumnos();
 
   $("#btn-agregar-alumno").click(function () {
-    $("#formulario-alumno").show();
+    $("#seccion-formulario").removeClass("d-none");
     $("#btn-agregar-alumno").hide();
   });
 
   $("#btn-cancelar").click(function () {
-    $("#formulario-alumno").hide();
+    $("#seccion-formulario").addClass("d-none");
     $("#btn-agregar-alumno").show();
   });
-
   $("#form-alumno").submit(function (e) {
     e.preventDefault();
     agregarAlumno();
@@ -102,6 +101,8 @@ function agregarAlumno() {
     },
   });
 }
+
+
 
 
 

@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Index</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tzinavos Team MMA</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/Index.css"/>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" src="js/Index.js"></script>
-  <link rel="stylesheet" href="css/Index.css">
-  <style>
-    .hidden { display: none; }
-  </style>
+  <script src="js/Index.js"></script>
 </head>
 <body>
 
-  <h1 class="text-center mt-4">TZINAVOS TEAM MMA</h1>
-
-  <div class="text-center mt-4">
-    <button id="btnLogin" class="btn btn-primary me-2" onclick="mostrarFormulario('login')">Login</button>
-    <button id="btnRegistro" class="btn btn-secondary" onclick="mostrarFormulario('registro')">Registro</button>
+<header class="header-container">
+  <div class="container d-flex flex-column flex-md-row align-items-center justify-content-center gap-3">
+    <div class="logo-box">
+      <img src="media/images/logo.jpeg" alt="logo" />
+    </div>
+    <h1 class="main-title text-center">TZINAVOS TEAM MMA</h1>
   </div>
+</header>
 
-  <!-- Modal de Mensajes -->
+  <!-- Botones -->
+  <div class="text-center mt-4">
+    <button id="btnLogin" class="btn btn-secondary mx-2" onclick="mostrarFormulario('login')">Login</button>
+    <button id="btnRegistro" class="btn btn-secondary mx-2" onclick="mostrarFormulario('registro')">Registro</button>
+  </div>
+  <!-- Modal Mensajes -->
   <div class="modal fade" id="modalMensaje" tabindex="-1" aria-labelledby="modalMensajeLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 shadow-lg rounded-4">
@@ -30,35 +34,34 @@
           <h5 class="modal-title" id="modalMensajeLabel">Mensaje</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
-        <div class="modal-body text-center" id="contenidoModalMensaje">
-          <!-- contenido dinámico -->
-        </div>
+        <div class="modal-body text-center" id="contenidoModalMensaje"></div>
       </div>
     </div>
   </div>
 
-  <!-- Modal 2FA -->
-  <div class="modal fade" id="modal2FA" tabindex="-1" aria-labelledby="modal2FALabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content border-0 shadow-lg rounded-4">
-        <div class="modal-header bg-danger text-white rounded-top-4">
-          <h5 class="modal-title" id="modal2FALabel">Verificación en dos pasos</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body text-center">
-          <p>Hemos enviado un código de 6 dígitos a tu correo. Por favor, introdúcelo:</p>
-          <input type="text" id="codigo2FA" maxlength="6" class="form-control text-center fw-bold fs-4 mb-3" placeholder="######" pattern="\d{6}">
-          <div class="invalid-feedback">El código debe tener exactamente 6 dígitos.</div>
-          <button id="verificarCodigo" class="btn btn-danger w-100">Verificar</button>
-        </div>
+<!-- Modal 2FA -->
+<div class="modal fade" id="modal2FA" tabindex="-1" aria-labelledby="modal2FALabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+      <div class="modal-header bg-danger text-white rounded-top-4">
+        <h5 class="modal-title" id="modal2FALabel">Verificación en dos pasos</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>Hemos enviado un código de 6 dígitos a tu correo. Por favor, introdúcelo:</p>
+        <input type="text" id="codigo2FA" maxlength="6" class="form-control text-center fw-bold fs-4 mb-3" placeholder="######" pattern="\d{6}"/>
+        <div class="invalid-feedback">El código debe tener exactamente 6 dígitos.</div>
+        <div id="errorCodigo2FA" class="text-danger fw-bold mb-3" style="display: none;">Código incorrecto. Intenta nuevamente.</div>
+        <button id="verificarCodigo" class="btn btn-danger w-100">Verificar</button>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="container mt-4">
-    <!-- Login -->
-    <form id="formLogin" method="POST">
-      <h3 class="text-center">Iniciar Sesión</h3>
+  <!-- Formularios -->
+  
+    <form id="formLogin" method="POST"  class="formulario-container hidden">
+      <h3 class="section-title">Iniciar Sesión</h3>
       <div class="mb-3">
         <label class="form-label">Email</label>
         <input type="email" name="email" id="emailLogin" class="form-control" required>
@@ -72,9 +75,8 @@
       </div>
     </form>
 
-    <!-- Registro -->
-    <form id="formRegistro" method="POST" class="hidden">
-      <h3 class="text-center">Registro</h3>
+    <form id="formRegistro" method="POST" class="formulario-container hidden">
+      <h3 class="section-title">Registro</h3>
       <div class="mb-3">
         <label class="form-label">Nombre</label>
         <input type="text" name="nombre" class="form-control" required>
@@ -91,6 +93,84 @@
         <button type="button" id="registrarse" class="btn btn-primary">Registrarse</button>
       </div>
     </form>
+  
+
+<!-- Entrenador -->
+<section class="info-section bg-light py-5">
+  <div class="container">
+    <h2 class="section-title">El Entrenador Gregoris Tzinavos</h2>
+    <div class="row align-items-center">
+      <div class="col-md-6 text-center mb-4 mb-md-0">
+        <img src="media/images/maestro.png" alt="Entrenador Gregoris Tzinavos" class="img-fluid rounded shadow">
+      </div>
+      <div class="col-md-6">
+        <p>
+          El entrenador <strong> Gregoris Tzinavos</strong>  es una leyenda viva de las artes marciales con una trayectoria impresionante que comenzó en su Grecia natal. Allí se formó en el ancestral arte del Pancrateon (Pankration Athlima), llegando a ser entrenador diplomado reconocido por el Ministerio de Deportes de Grecia y ostentando el cinturón negro 4º dan. Paralelamente se entrenó en Karate, alcanzando el 3º dan y logrando ser campeón nacional en Katas y Kumite en varias ocasiones.
+        </p>
+        <p>
+          Fue instructor de defensa personal de la Policía Griega y entrenador del equipo nacional griego de Pancrateon, participando con éxito en campeonatos europeos y mundiales. Su conocimiento le llevó a ser nombrado Secretario del Comité Técnico de la International Federation of Pankration Athlima (IFPA).
+        </p>
+        <p>
+          Al trasladarse a España, continuó su legado impartiendo seminarios de artes marciales en Segovia desde 1997, y fundó su propia academia en 2001. Fue entrenador de la IE Universidad, y ha competido en numerosos campeonatos nacionales e internacionales, destacando en disciplinas como Brazilian Jiu Jitsu, Katas, Boxeo, Kickboxing y Jiu-Jitsu, acumulando títulos y medallas a lo largo de los años.
+        </p>
+      </div>
+    </div>
   </div>
+</section>
+
+  <!-- Gimnasio -->
+  <section class="info-section bg-white py-5">
+    <div class="container">
+      <h2 class="section-title">Nuestro Gimnasio</h2>
+      <div class="row align-items-center flex-md-row-reverse">
+        <div class="col-md-6 text-center mb-4 mb-md-0">
+          <img src="media/images/equipo.jpeg" alt="Equipo de MMA" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-md-6">
+        <p>
+          La pasión por las artes marciales es contagiosa. Con una experiencia forjada tanto en el tatami como en la enseñanza, Gregoris Tzinavos no solo entrena campeones, sino que transforma vidas a través de la disciplina, el respeto y la superación personal.
+        </p>
+          <p >En <strong> Tzinavos Team MMA </strong>ofrecemos un espacio único para entrenar artes marciales mixtas, con instalaciones de primera calidad y un equipo altamente capacitado.</p>
+          <p >Desde principiantes hasta profesionales, aquí todos encuentran su lugar para crecer, superarse y formar parte de una comunidad con disciplina y pasión.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Sección de ubicación -->
+<section class="info-section text-center bg-light py-5">
+  <div class="container">
+    <h2 class="section-title">¿Dónde estamos?</h2>
+    <p class="lead">
+      Nos encontramos en: Av. de la Constitución, Centro Comercial, 40490 Hontanares de Eresma, Segovia. ¡Ven a conocernos!
+    </p>
+
+    <!-- Mapa estático con coordenadas precisas -->
+    <a 
+      href="https://www.google.com/maps/place/40.990431,-4.208429" 
+      target="_blank"
+    >
+      <img 
+        src="https://maps.googleapis.com/maps/api/staticmap?center=40.990431,-4.208429&zoom=18&size=600x300&scale=2&markers=icon:https://cdn-icons-png.flaticon.com/512/684/684908.png|40.990431,-4.208429&key=AIzaSyBGEN1DLMdEnPnC5iwbhqEODeaijBRIgRU"
+        alt="Mapa de ubicación del gimnasio"
+        style="width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"
+      >
+    </a>
+  </div>
+</section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+      <img src="media/images/mirmidones.jpeg" alt="mirmidones" class="footer-img mb-3 mb-md-0">
+      <div class="text-center mx-md-5">
+        <h3 class="fw-bold">¡Contacta con nosotros!</h3>
+        <p>Tlf: 652 91 31 27 </p>
+        <p>Email entrenador: tzinavosteam@hotmail.com</p>
+        <p>Email para ayuda de la web: support@tzinavosteam.online</p>
+      </div>
+      <img src="media/images/pankrationw.jpeg" alt="pankration" class="footer-img mb-3 mb-md-0">
+    </div>
+  </footer>
 </body>
 </html>

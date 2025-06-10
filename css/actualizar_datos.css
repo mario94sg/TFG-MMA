@@ -29,24 +29,6 @@ h1.main-title {
   box-shadow: 0 0 20px #e50914;
   border: 4px solid #fff;
 }
-/* ===== Navbar ===== */
-.navbar {
-  margin-bottom: 2rem;
-  box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
-}
-.navbar-brand {
-  color: #e50914 !important;
-  font-weight: 800;
-  font-size: 1.5rem;
-}
-.nav-link {
-  color: #f8f9fa !important;
-  font-weight: 600;
-  margin-right: 1rem;
-}
-.nav-link:hover {
-  color: #e50914 !important;
-}
 
 /* ===== Formularios ===== */
 .formulario-container {
@@ -60,16 +42,13 @@ h1.main-title {
 
 .form-label {
   font-weight: bold;
-  color: #070707;
+  color: #fff;
 }
 
 input.form-control {
   border-radius: 0.5rem;
   padding: 0.75rem;
   font-size: 1rem;
-}
-.hidden {
-  display: none !important;
 }
 /* ===== Botones ===== */
 button.btn {
@@ -85,8 +64,6 @@ button.btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(229, 9, 20, 0.6);
 }
-
-/* ===== Secciones de Información ===== */
 .info-section {
   background: rgba(255, 255, 255, 0.05);
   border-top: 2px solid #e50914;
@@ -94,20 +71,6 @@ button.btn:hover {
   padding: 4vh 2vw;
   margin: 2vh 0;
 }
-
-.info-section p {
-  font-size: 1.1rem;
-  color: #030303;
-}
-
-/* ===== Imágenes ===== */
-.img-fluid {
-  border: 3px solid #e50914;
-  border-radius: 1rem;
-  box-shadow: 0 0 20px rgba(229, 9, 20, 0.5);
-  max-width: 90%;
-}
-
 /* ===== Footer ===== */
 footer {
   background: #000;
@@ -120,17 +83,11 @@ footer {
   border: 2px solid #fff;
   box-shadow: 0 0 10px rgba(229, 9, 20, 0.7);
 }
-
 /* ===== Modal ===== */
 .modal-content {
   background-color: #1f1f1f;
   color: white;
 }
-
-.modal-header {
-  border-bottom: none;
-}
-
 /* ===== Media Queries ===== */
 @media (max-width: 768px) {
   h1.main-title {

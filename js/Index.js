@@ -50,39 +50,41 @@ function cargarEventos() {
     });
 
     $('#verificarCodigo').click(function (e) {
-        e.preventDefault();
-        const codigo = $('#codigo2FA').val().trim();
+    e.preventDefault();
+    const codigo = $('#codigo2FA').val().trim();
 
-        if (!/^\d{6}$/.test(codigo)) {
-            $('#codigo2FA').addClass('is-invalid');
-            return;
-        } else {
-            $('#codigo2FA').removeClass('is-invalid');
-        }
+    // Oculta mensajes de error previos
+    $('#errorCodigo2FA').hide();
+    $('#codigo2FA').removeClass('is-invalid');
 
-        $.ajax({
-            url: './controlador/verificar_2fa.php',
-            type: 'POST',
-            dataType: 'json',
-            data: { codigo: codigo },
-            success: function (res) {
-                if (res.validado) {
-                    if (res.tipo === 'entrenador') {
-                        window.location.href = './vistas/entrenador/vista_entrenador.php';
-                    } else if (res.tipo === 'alumno') {
-                        window.location.href = './vistas/alumno/vista_alumno.php';
-                    } else {
-                        mostrarModalMensaje('Tipo de usuario desconocido.', 'danger');
-                    }
-                } else {
-                    mostrarModalMensaje(res.mensaje || 'Código incorrecto.', 'danger');
+    if (!/^\d{6}$/.test(codigo)) {
+        $('#codigo2FA').addClass('is-invalid');
+        return;
+    }
+
+    $.ajax({
+        url: './controlador/verificar_2fa.php',
+        type: 'POST',
+        dataType: 'json',
+        data: { codigo: codigo },
+        success: function (res) {
+            if (res.validado) {
+                // Redireccionar según tipo de usuario
+                if (res.tipo === 'entrenador') {
+                    window.location.href = './vistas/entrenador/vista_entrenador.php';
+                } else if (res.tipo === 'alumno') {
+                    window.location.href = './vistas/alumno/vista_alumno.php';
                 }
-            },
-            error: function () {
-                mostrarModalMensaje('Error al verificar el código. Intenta más tarde.', 'danger');
+            } else {
+                $('#errorCodigo2FA').show(); // Mostrar error de código incorrecto
+                $('#codigo2FA').val('').focus();
             }
-        });
+        },
+        error: function () {
+            $('#errorCodigo2FA').text('Error del servidor. Intenta más tarde.').show();
+        }
     });
+});
 
     $('#registrarse').click(function (e) {
         e.preventDefault();

@@ -50,7 +50,7 @@ h1.main-title {
 
 /* ===== Formularios ===== */
 .formulario-container {
-  max-width: 500px;
+  max-width: 1000px;
   margin: 4vh auto;
   padding: 2rem;
   background: rgba(0, 0, 0, 0.6);

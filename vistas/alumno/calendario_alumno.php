@@ -17,7 +17,7 @@ include "../componentes/modal_logout.php";
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="../../js/calendario_alumno.js"></script>
-  <link rel="stylesheet" href="../../css/calendario_alumno.css" />
+  <link rel="stylesheet" href="../../css/calendario_entrenador.css" />
   <!-- FullCalendar 5 -->
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
@@ -26,21 +26,79 @@ include "../componentes/modal_logout.php";
 </head>
 
 <body>
+  <header class="header-container">
+    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-center gap-3">
+      <div class="logo-box">
+        <img src="../../media/images/logo.jpeg" alt="logo" />
+      </div>
+      <h1 class="main-title text-center">TZINAVOS TEAM MMA <?= htmlspecialchars($_SESSION['nombre']) ?></h1>
+    </div>
+  </header>
   <div class="container mt-4">
-    <h1 class="text-center mb-4">Tzinavos Team MMA Calendario - Alumno <?= htmlspecialchars($_SESSION['nombre']) ?></h1>
-    <nav class="mb-4 text-center">
-      <a href="vista_alumno.php" class="btn btn-outline-primary me-2">Inicio</a>
-      <a href="noticias_alumno.php" class="btn btn-outline-primary me-2">Noticias</a>
-      <a href="calendario_alumno.php" class="btn btn-primary me-2">Calendario</a>
-      <a href="ejercicios_alumno.php" class="btn btn-outline-primary me-2">Ejercicios</a>
-      <a href="foro_alumno.php" class="btn btn-outline-primary">Foro</a>
-      <a href="nutricion_alumno.php" class="btn btn-outline-primary">Nutrición</a>
-      <button class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#logoutModal">
-        Cerrar sesión
-      </button>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark rounded px-3">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="calendario_alumno.php">Calendario</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEntrenador" aria-controls="navbarEntrenador" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center" id="navbarEntrenador">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a href="vista_alumno.php" class="nav-link">Inicio</a></li>
+            <li class="nav-item"><a href="noticias_alumno.php" class="nav-link">Noticias</a></li>
+            <li class="nav-item"><a href="ejercicios_alumno.php" class="nav-link">Ejercicios</a></li>
+            <li class="nav-item"><a href="foro_alumno.php" class="nav-link">Foro</a></li>
+            <li class="nav-item"><a href="nutricion_alumno.php" class="nav-link">Nutrición</a></li>
+          </ul>
+          <button class="btn btn-danger ms-auto" data-bs-toggle="modal" data-bs-target="#logoutModal">
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
     </nav>
-    <div id="calendar"></div>
   </div>
+
+  <section class="info-section bg-light py-5">
+    <div class="container mt-4">
+      <div id="calendar" class="mb-5"></div>
+    </div>
+
+    <div id="evento-detalles" class="container mt-4">
+      <h3 class="mb-3">Detalles del Evento Seleccionado</h3>
+      <table class="table table-bordered d-none">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="detalle-titulo"></td>
+            <td id="detalle-descripcion"></td>
+            <td id="detalle-inicio"></td>
+            <td id="detalle-fin"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+      <img src="../../media/images/mirmidones.jpeg" alt="mirmidones" class="footer-img mb-3 mb-md-0">
+      <div class="text-center mx-md-5">
+        <h3 class="fw-bold">¡Contacta con el maestro!</h3>
+        <p>Tlf: 652 91 31 27 </p>
+        <p>Email maestro: tzinavosteam@hotmail.com</p>
+        <p>Email para ayuda de la web: support@tzinavosteam.online</p>
+      </div>
+      <img src="../../media/images/pankrationw.jpeg" alt="pankration" class="footer-img mb-3 mb-md-0">
+    </div>
+  </footer>
 </body>
 
 </html>

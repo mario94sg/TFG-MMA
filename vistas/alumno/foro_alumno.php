@@ -14,38 +14,70 @@ include "../componentes/modal_logout.php";
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../../js/foro_alumno.js"></script>
-  <link rel="stylesheet" href="../../css/foro_alumno.css">
+  <link rel="stylesheet" href="../../css/foro.css">
 </head>
 
 <body>
-  <div class="container mt-4">
-    <h1 class="text-center mb-4">Tzinavos Team MMA Foro - Alumno <?= htmlspecialchars($_SESSION['nombre']) ?></h1>
-
-    <nav class="mb-4 text-center">
-      <a href="vista_alumno.php" class="btn btn-outline-primary me-2">Inicio</a>
-      <a href="noticias_alumno.php" class="btn btn-outline-primary me-2">Noticias</a>
-      <a href="calendario_alumno.php" class="btn btn-outline-primary me-2">Calendario</a>
-      <a href="ejercicios_alumno.php" class="btn btn-outline-primary me-2">Ejercicios</a>
-      <a href="foro_alumno.php" class="btn btn-primary me-2">Foro</a>
-      <a href="nutricion_alumno.php" class="btn btn-outline-primary">Nutrición</a>
-      <button class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#logoutModal">Cerrar sesión</button>
-    </nav>
-
-    <div class="d-flex justify-content-between align-items-start mb-3">
-      <div id="asuntos-container" class="d-flex flex-wrap gap-2"></div>
-      <form id="form-nuevo-asunto" class="ms-3 w-25">
-        <div class="mb-2">
-          <input type="text" class="form-control" id="titulo_asunto" placeholder="Nuevo asunto" required />
-        </div>
-        <div>
-          <textarea class="form-control" id="mensaje_inicial" rows="2" placeholder="Mensaje inicial..." required></textarea>
-        </div>
-        <button type="submit" class="btn btn-success mt-2 w-100">Crear asunto</button>
-      </form>
+  <header class="header-container">
+    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-center gap-3">
+      <div class="logo-box">
+        <img src="../../media/images/logo.jpeg" alt="logo" />
+      </div>
+      <h1 class="main-title text-center">TZINAVOS TEAM MMA <?= htmlspecialchars($_SESSION['nombre']) ?></h1>
     </div>
+  </header>
+  <div class="container mt-4">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark rounded px-3">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="foro_alumno.php">Foro</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEntrenador" aria-controls="navbarEntrenador" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div id="conversaciones" class="accordion"></div>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarEntrenador">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a href="vista_alumno.php" class="nav-link">Inicio</a></li>
+            <li class="nav-item"><a href="noticias_alumno.php" class="nav-link">Noticias</a></li>
+            <li class="nav-item"><a href="calendario_alumno.php" class="nav-link">Calendario</a></li>
+            <li class="nav-item"><a href="ejercicios_alumno.php" class="nav-link">Ejercicios</a></li>
+            <li class="nav-item"><a href="nutricion_alumno.php" class="nav-link">Nutrición</a></li>
+          </ul>
+          <button class="btn btn-danger ms-auto" data-bs-toggle="modal" data-bs-target="#logoutModal">
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
+    </nav>
   </div>
+<section class="info-section bg-light py-5">
+  <div class="container mt-4">
+    <div class="row g-4 align-items-start">
+      <div id="asuntos-container" class="col-md-6 d-flex flex-wrap gap-2">
+        <!-- Aquí irán los asuntos -->
+      </div>
+      <div class="col-md-6">
+        <form id="form-nuevo-asunto" class="formulario-container">
+          <h2 class="section-title">Crear nueva conversacion</h2>
+          <div class="mb-2">
+            <input type="text" class="form-control" id="titulo_asunto" placeholder="Nuevo Asunto" required />
+          </div>
+          <div>
+            <textarea class="form-control" id="mensaje_inicial" rows="2" placeholder="Mensaje inicial..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-success mt-2 w-100">Crear asunto</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section class="info-section bg-light py-5">
+    <div class="container mt-4">
+      <h2 class="section-title">Conversaciones</h2>
+      <div id="conversaciones" class="accordion"></div>
+    </div>
+  </section>
+
 
   <!-- Modales -->
   <div class="modal fade" id="modalAlert" tabindex="-1" aria-hidden="true">
@@ -80,6 +112,19 @@ include "../componentes/modal_logout.php";
       </div>
     </div>
   </div>
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+      <img src="../../media/images/mirmidones.jpeg" alt="mirmidones" class="footer-img mb-3 mb-md-0">
+      <div class="text-center mx-md-5">
+        <h3 class="fw-bold">¡Contacta con el maestro!</h3>
+        <p>Tlf: 652 91 31 27 </p>
+        <p>Email maestro: tzinavosteam@hotmail.com</p>
+        <p>Email para ayuda de la web: support@tzinavosteam.online</p>
+      </div>
+      <img src="../../media/images/pankrationw.jpeg" alt="pankration" class="footer-img mb-3 mb-md-0">
+    </div>
+  </footer>
 </body>
 
 </html>

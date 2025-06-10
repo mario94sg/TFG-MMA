@@ -1,76 +1,133 @@
-/* Centrado de los formularios */
-.form-container {
-    max-width: 400px;
-    margin: 30px auto;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+/* ===== Estilo General ===== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #111, #1a1a1a);
+  color: #f8f9fa;
+  min-height: 100vh;
 }
 
-/* Oculta elementos con clase hidden */
+h1.main-title {
+  font-size: 5vw;
+  color: #e50914;
+  text-shadow: 2px 2px 8px #000;
+  font-weight: 900;
+  margin: 1rem 0;
+}
+
+.section-title {
+  font-size: 3vw;
+  font-weight: 700;
+  color:#e50914;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* ===== Logo ===== */
+.logo-box img {
+  max-height: 120px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #e50914;
+  border: 4px solid #fff;
+}
+
+/* ===== Formularios ===== */
+.formulario-container {
+  max-width: 500px;
+  margin: 4vh auto;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 1rem;
+  box-shadow: 0 0 15px #e50914;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #fff;
+}
+
+input.form-control {
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+}
 .hidden {
-    display: none !important;
+  display: none !important;
+}
+/* ===== Botones ===== */
+button.btn {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 10px rgba(229, 9, 20, 0.4);
+  transition: all 0.3s ease-in-out;
 }
 
-/* Encabezado principal */
-h1 {
-    margin-top: 30px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 2.5rem;
-    color: #212529;
+button.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(229, 9, 20, 0.6);
 }
 
-/* Botones activos */
-#btnLogin.btn-primary,
-#btnRegistro.btn-primary {
-    font-weight: bold;
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+/* ===== Secciones de Información ===== */
+.info-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-top: 2px solid #e50914;
+  border-bottom: 2px solid #e50914;
+  padding: 4vh 2vw;
+  margin: 2vh 0;
 }
 
-/* Modal personalizado */
+.info-section p {
+  font-size: 1.1rem;
+  color: #030303;
+}
+
+/* ===== Imágenes ===== */
+.img-fluid {
+  border: 3px solid #e50914;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.5);
+  max-width: 90%;
+}
+
+/* ===== Footer ===== */
+footer {
+  background: #000;
+  border-top: 3px solid #e50914;
+}
+
+.footer-img {
+  height: 100px;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.7);
+}
+
+/* ===== Modal ===== */
 .modal-content {
-    border-radius: 1rem;
+  background-color: #1f1f1f;
+  color: white;
 }
 
 .modal-header {
-    border-bottom: none;
+  border-bottom: none;
 }
 
-.modal-title {
-    font-weight: bold;
-}
+/* ===== Media Queries ===== */
+@media (max-width: 768px) {
+  h1.main-title {
+    font-size: 8vw;
+  }
 
-.modal-body p {
-    font-size: 1.1rem;
-    color: #333;
-}
+  .section-title {
+    font-size: 5vw;
+  }
 
-/* Input del código 2FA */
-#codigo2FA {
-    letter-spacing: 0.3rem;
-    font-family: monospace;
-}
+  .logo-box img {
+    max-height: 80px;
+  }
 
-/* Mejor feedback visual */
-.invalid-feedback {
-    display: block;
-    color: red;
-}
-
-/* Botones con ancho completo */
-.btn-block {
-    width: 100%;
-}
-
-/* Ajustes para pantallas pequeñas */
-@media (max-width: 576px) {
-    .form-container {
-        padding: 20px;
-    }
-
-    h1 {
-        font-size: 1.8rem;
-    }
+  .formulario-container {
+    margin: 3vh auto;
+  }
 }

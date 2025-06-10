@@ -71,10 +71,39 @@ $(document).ready(function () {
         html += '</div>';
 
         $('#resultadosRecetas').html(html);
+
+        
+        traducirResultados();
       },
       error: function (xhr, status, error) {
         $('#resultadosRecetas').html(`<div class="alert alert-danger">Error: ${error}<br>${xhr.responseText}</div>`);
       }
     });
   });
+
+  
+  function traducirResultados() {
+  const textoOriginal = $('#resultadosRecetas').text();
+
+  $.ajax({
+    url: "http://localhost:5000/translate",  
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({
+      q: textoOriginal,
+      source: "en",
+      target: "es",
+      format: "text"
+    }),
+    success: function (data) {
+      if (data.translatedText) {
+        $('#resultadosRecetas').text(data.translatedText);
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error("Error al traducir:", error, xhr.responseText);
+    }
+  });
+}
+
 });

@@ -15,25 +15,93 @@ include "../componentes/modal_logout.php";
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script type="text/javascript" src="../../js/vista_alumno.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="../../css/vista_alumno.css">
+  <link rel="stylesheet" href="../../css/vista_entrenador.css">
 </head>
 
 <body>
+  <header class="header-container">
+    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-center gap-3">
+      <div class="logo-box">
+        <img src="../../media/images/logo.jpeg" alt="logo" />
+      </div>
+      <h1 class="main-title text-center">TZINAVOS TEAM MMA <?= htmlspecialchars($_SESSION['nombre']) ?></h1>
+    </div>
+  </header>
   <div class="container mt-4">
-    <h1 class="text-center mb-4">Tzinavos Team MMA - Alumno <?= htmlspecialchars($_SESSION['nombre']) ?></h1>
-    <nav class="mb-4 text-center">
-      <a href="vista_alumno.php" class="btn btn-primary me-2">Inicio</a>
-      <a href="noticias_alumno.php" class="btn btn-outline-primary me-2">Noticias</a>
-      <a href="calendario_alumno.php" class="btn btn-outline-primary me-2">Calendario</a>
-      <a href="ejercicios_alumno.php" class="btn btn-outline-primary me-2">Ejercicios</a>
-      <a href="foro_alumno.php" class="btn btn-outline-primary">Foro</a>
-      <a href="nutricion_alumno.php" class="btn btn-outline-primary">Nutrición</a>
-      <button class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#logoutModal">
-        Cerrar sesión
-      </button>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark rounded px-3">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="vista_alumno.php">Inicio</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEntrenador" aria-controls="navbarEntrenador" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center" id="navbarEntrenador">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a href="noticias_alumno.php" class="nav-link">Noticias</a></li>
+            <li class="nav-item"><a href="calendario_alumno.php" class="nav-link">Calendario</a></li>
+            <li class="nav-item"><a href="ejercicios_alumno.php" class="nav-link">Ejercicios</a></li>
+            <li class="nav-item"><a href="foro_alumno.php" class="nav-link">Foro</a></li>
+            <li class="nav-item"><a href="nutricion_alumno.php" class="nav-link">Nutrición</a></li>
+          </ul>
+          <button class="btn btn-danger ms-auto" data-bs-toggle="modal" data-bs-target="#logoutModal">
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
     </nav>
   </div>
+<section class="info-section bg-light py-5">
+    <div class="container">
+      <h2 class="section-title">Filosofia del Pankration</h2>
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center mb-4 mb-md-0">
+          <img src="../../media/images/pankration.jpeg" alt="Pankration" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-md-6">
+          <p>
+            "El arte marcial persigue la gloria en la guerra. El deporte de arte marcial pretende mejorar a la persona en cuerpo y alma y con esto ayudarle a conocerse, respetarse y confiar en uno mismo.
+          </p>
+          <p>
+            De esta forma queda clara la diferencia que hay entre las artes marciales como tal y las artes marciales como deporte.
+          </p>
+          <p>
+            Cuando un arte marcial no se practica con espíritu atlético y tiene aspiraciones inferiores o intenciones inmorales, no es un deporte técnico sino una forma de
+            educación criminal.
+          </p>
+          <p>
+            El Pankration fomenta el respeto hacia uno mismo y hacia los demás, desarrolla la virtud entendiéndose como tal la sensatez, la justicia y el valor. En tres palabras el Pankration aporta: moralidad, agilidad y fuerza."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <section class="info-section bg-light py-5">
+    <div class="container">
+      <h2 class="section-title">Hazte con la equipación del gimnasio</h2>
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center mb-4 mb-md-0">
+          <img src="../../media/images/Equipacion-delantera.png" alt="Equipación del" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-md-6 text-center mb-4 mb-md-0">
+          <img src="../../media/images/Equipacion-trasera.png" alt="Equipación tras" class="img-fluid rounded shadow">
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+      <img src="../../media/images/mirmidones.jpeg" alt="mirmidones" class="footer-img mb-3 mb-md-0">
+      <div class="text-center mx-md-5">
+        <h3 class="fw-bold">¡Contacta con el maestro!</h3>
+        <p>Tlf: 652 91 31 27 </p>
+        <p>Email maestro: tzinavosteam@hotmail.com</p>
+        <p>Email para ayuda de la web: support@tzinavosteam.online</p>
+      </div>
+      <img src="../../media/images/pankrationw.jpeg" alt="pankration" class="footer-img mb-3 mb-md-0">
+    </div>
+  </footer>
 </body>
 
 </html>
