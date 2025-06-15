@@ -123,8 +123,8 @@ include "../componentes/modal_logout.php";
     </div>
   </section>
   <section class="info-section bg-light py-5">
-      <h2 class="section-title">Recetas encontradas</h2>
-      <div class="container mt-4" id="resultadosRecetas"></div>
+    <h2 class="section-title">Recetas encontradas</h2>
+    <div class="container mt-4" id="resultadosRecetas"></div>
   </section>
   <!-- Footer -->
   <footer class="bg-dark text-white py-4 mt-5">

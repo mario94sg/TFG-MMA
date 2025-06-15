@@ -50,7 +50,7 @@ include "../componentes/modal_logout.php";
       </div>
     </nav>
   </div>
-<section class="info-section bg-light py-5">
+  <section class="info-section bg-light py-5">
     <div class="container">
       <h2 class="section-title">Filosofia del Pankration</h2>
       <div class="row align-items-center">

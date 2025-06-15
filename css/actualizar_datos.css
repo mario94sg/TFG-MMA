@@ -17,7 +17,7 @@ h1.main-title {
 .section-title {
   font-size: 3vw;
   font-weight: 700;
-  color:#e50914;
+  color: #e50914;
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -50,6 +50,7 @@ input.form-control {
   padding: 0.75rem;
   font-size: 1rem;
 }
+
 /* ===== Botones ===== */
 button.btn {
   font-size: 1.2rem;
@@ -64,6 +65,7 @@ button.btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(229, 9, 20, 0.6);
 }
+
 .info-section {
   background: rgba(255, 255, 255, 0.05);
   border-top: 2px solid #e50914;
@@ -71,6 +73,7 @@ button.btn:hover {
   padding: 4vh 2vw;
   margin: 2vh 0;
 }
+
 /* ===== Footer ===== */
 footer {
   background: #000;
@@ -83,11 +86,13 @@ footer {
   border: 2px solid #fff;
   box-shadow: 0 0 10px rgba(229, 9, 20, 0.7);
 }
+
 /* ===== Modal ===== */
 .modal-content {
   background-color: #1f1f1f;
   color: white;
 }
+
 /* ===== Media Queries ===== */
 @media (max-width: 768px) {
   h1.main-title {

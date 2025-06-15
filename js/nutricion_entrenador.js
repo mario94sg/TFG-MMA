@@ -84,7 +84,7 @@ $(document).ready(function () {
       }
     });
   });
- 
+
 
   // Traducción al pulsar el botón
   $(document).on('click', '.btn-traducir', function () {

@@ -31,15 +31,15 @@ $caloriesRange = urlencode("$minCalories-$maxCalories");
 
 // Construir la URL de la API de Edamam
 $url = "https://api.edamam.com/api/recipes/v2?type=public"
-     . "&q=" . urlencode($query)
-     . "&app_id=$appId"
-     . "&app_key=$appKey"
-     . ($health ? "&health=" . urlencode($health) : "")
-     . ($diet ? "&diet=" . urlencode($diet) : "")
-     . ($mealType ? "&mealType=" . urlencode($mealType) : "")
-     . ($exclude ? "&excluded=" . urlencode($exclude) : "")
-     . "&calories=$caloriesRange"
-     . ($maxTime > 0 ? "&time=1-" . $maxTime : "");
+    . "&q=" . urlencode($query)
+    . "&app_id=$appId"
+    . "&app_key=$appKey"
+    . ($health ? "&health=" . urlencode($health) : "")
+    . ($diet ? "&diet=" . urlencode($diet) : "")
+    . ($mealType ? "&mealType=" . urlencode($mealType) : "")
+    . ($exclude ? "&excluded=" . urlencode($exclude) : "")
+    . "&calories=$caloriesRange"
+    . ($maxTime > 0 ? "&time=1-" . $maxTime : "");
 
 // Configurar cURL
 $ch = curl_init();

@@ -20,7 +20,7 @@ include "../componentes/modal_logout.php";
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/es.js"></script>
-  
+
   <script src="../../js/calendario_entrenador.js"></script>
 
 </head>
@@ -80,25 +80,25 @@ include "../componentes/modal_logout.php";
     </div>
   </section>
 
- <section class="info-section bg-light py-5">
-  <div class="container mt-4">
-    <h2 class="section-title">Lista de eventos</h2>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Título</th>
-            <th>Descripción</th>
-            <th>Inicio</th>
-            <th>Fin</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="tabla-eventos"></tbody>
-      </table>
+  <section class="info-section bg-light py-5">
+    <div class="container mt-4">
+      <h2 class="section-title">Lista de eventos</h2>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Descripción</th>
+              <th>Inicio</th>
+              <th>Fin</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-eventos"></tbody>
+        </table>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- Modales -->
   <div class="modal fade" id="modalMensaje" tabindex="-1" aria-labelledby="modalMensajeLabel" aria-hidden="true">

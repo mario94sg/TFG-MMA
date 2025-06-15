@@ -10,7 +10,8 @@ $texto = $_POST['texto'];
 $from = 'en';
 $to = 'es';
 
-function traducirLingva($texto, $from = 'en', $to = 'es') {
+function traducirLingva($texto, $from = 'en', $to = 'es')
+{
     //  se usa rawurlencode para evitar problemas con espacios
     $url = "https://lingva.ml/api/v1/$from/$to/" . rawurlencode($texto);
 

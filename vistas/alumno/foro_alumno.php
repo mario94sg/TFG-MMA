@@ -49,27 +49,27 @@ include "../componentes/modal_logout.php";
       </div>
     </nav>
   </div>
-<section class="info-section bg-light py-5">
-  <div class="container mt-4">
-    <div class="row g-4 align-items-start">
-      <div id="asuntos-container" class="col-md-6 d-flex flex-wrap gap-2">
-        <!-- Aquí irán los asuntos -->
-      </div>
-      <div class="col-md-6">
-        <form id="form-nuevo-asunto" class="formulario-container">
-          <h2 class="section-title">Crear nueva conversacion</h2>
-          <div class="mb-2">
-            <input type="text" class="form-control" id="titulo_asunto" placeholder="Nuevo Asunto" required />
-          </div>
-          <div>
-            <textarea class="form-control" id="mensaje_inicial" rows="2" placeholder="Mensaje inicial..." required></textarea>
-          </div>
-          <button type="submit" class="btn btn-success mt-2 w-100">Crear asunto</button>
-        </form>
+  <section class="info-section bg-light py-5">
+    <div class="container mt-4">
+      <div class="row g-4 align-items-start">
+        <div id="asuntos-container" class="col-md-6 d-flex flex-wrap gap-2">
+          <!-- Aquí irán los asuntos -->
+        </div>
+        <div class="col-md-6">
+          <form id="form-nuevo-asunto" class="formulario-container">
+            <h2 class="section-title">Crear nueva conversacion</h2>
+            <div class="mb-2">
+              <input type="text" class="form-control" id="titulo_asunto" placeholder="Nuevo Asunto" required />
+            </div>
+            <div>
+              <textarea class="form-control" id="mensaje_inicial" rows="2" placeholder="Mensaje inicial..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success mt-2 w-100">Crear asunto</button>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <section class="info-section bg-light py-5">
     <div class="container mt-4">

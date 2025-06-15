@@ -80,13 +80,13 @@ $(document).ready(function () {
     }, "json");
   }
 
- 
+
   function mostrarModalMensaje(mensaje) {
     $("#modalCuerpoMensaje").text(mensaje);
     $("#modalMensaje").modal("show");
   }
 
- 
+
   let eventoAEliminar = null;
   $("#btnConfirmarEliminar").click(function () {
     if (eventoAEliminar) {

@@ -38,7 +38,7 @@ include "../componentes/modal_logout.php";
 
         <div class="collapse navbar-collapse justify-content-center" id="navbarEntrenador">
           <ul class="navbar-nav">
-            
+
             <li class="nav-item"><a href="noticias_entrenador.php" class="nav-link">Noticias</a></li>
             <li class="nav-item"><a href="alumnos_entrenador.php" class="nav-link">Alumnos</a></li>
             <li class="nav-item"><a href="calendario_entrenador.php" class="nav-link">Calendario</a></li>
@@ -87,7 +87,7 @@ include "../componentes/modal_logout.php";
         <div class="col-md-6 text-center mb-4 mb-md-0">
           <img src="../../media/images/Equipacion-delantera.png" alt="Equipación del" class="img-fluid rounded shadow">
         </div>
-        <div class="col-md-6 text-center mb-4 mb-md-0" >
+        <div class="col-md-6 text-center mb-4 mb-md-0">
           <img src="../../media/images/Equipacion-trasera.png" alt="Equipación tras" class="img-fluid rounded shadow">
         </div>
       </div>

@@ -117,11 +117,11 @@ $(document).ready(function () {
             </thead>
             <tbody>
               ${respuesta.map((ej) => {
-                const estado = ej.completado == 1 ? "Completado" : "Pendiente";
-                const clase = ej.completado == 1 ? "table-success" : "table-danger";
-                const fecha = new Date(ej.fecha_asignacion).toLocaleString();
+          const estado = ej.completado == 1 ? "Completado" : "Pendiente";
+          const clase = ej.completado == 1 ? "table-success" : "table-danger";
+          const fecha = new Date(ej.fecha_asignacion).toLocaleString();
 
-                return `
+          return `
                   <tr class="${clase}">
                     <td>${ej.titulo}</td>
                     <td>${ej.descripcion}</td>
@@ -135,7 +135,7 @@ $(document).ready(function () {
                     </td>
                   </tr>
                 `;
-              }).join("")}
+        }).join("")}
             </tbody>
           </table>
         `;

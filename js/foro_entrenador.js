@@ -125,7 +125,7 @@ $(document).ready(function () {
         }, function (res) {
           if (res.success) {
             $(`#${cardId}`).remove();
-            boton.remove(); 
+            boton.remove();
             quitarAsuntoActivo(id_asunto);
             mostrarModal("Asunto eliminado correctamente");
           }

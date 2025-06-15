@@ -53,8 +53,8 @@ include "../componentes/modal_logout.php";
   </div>
   <section class="info-section bg-light py-5">
     <div class="container mt-4">
-    <h2 class="section-title">Últimas noticias</h2>
-    <div id="listaNoticias" class="row row-cols-1 g-4"></div>
+      <h2 class="section-title">Últimas noticias</h2>
+      <div id="listaNoticias" class="row row-cols-1 g-4"></div>
     </div>
   </section>
 

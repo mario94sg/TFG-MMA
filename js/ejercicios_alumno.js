@@ -40,7 +40,7 @@ $(document).ready(function () {
     });
   }
 
-  
+
   $(document).on("click", ".marcar-completado", function () {
     idEjercicioACompletar = $(this).data("id");
     const modal = new bootstrap.Modal(document.getElementById("modalConfirmarCompletar"));

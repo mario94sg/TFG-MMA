@@ -1,13 +1,13 @@
 $(document).ready(function () {
-    cargarNoticias();
+  cargarNoticias();
 
-    function cargarNoticias() {
-        $.getJSON("../../modelo/gestionar_noticias.php", { accion: "obtener" }, function (noticias) {
-            const contenedor = $("#listaNoticias");
-            contenedor.empty();
+  function cargarNoticias() {
+    $.getJSON("../../modelo/gestionar_noticias.php", { accion: "obtener" }, function (noticias) {
+      const contenedor = $("#listaNoticias");
+      contenedor.empty();
 
-            noticias.forEach(n => {
-                contenedor.append(`
+      noticias.forEach(n => {
+        contenedor.append(`
           <div class="col">
             <div class="card shadow-sm">
               <div class="card-body">
@@ -18,11 +18,11 @@ $(document).ready(function () {
             </div>
           </div>
         `);
-            });
+      });
 
-            if (noticias.length === 0) {
-                contenedor.append(`<div class="col"><div class="alert alert-info">No hay noticias disponibles.</div></div>`);
-            }
-        });
-    }
+      if (noticias.length === 0) {
+        contenedor.append(`<div class="col"><div class="alert alert-info">No hay noticias disponibles.</div></div>`);
+      }
+    });
+  }
 });

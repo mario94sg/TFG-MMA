@@ -29,8 +29,8 @@ $(document).ready(function () {
       $("#detalle-titulo").text(info.event.title);
       $("#detalle-descripcion").text(info.event.extendedProps.description);
       $("#detalle-inicio").text(info.event.start.toISOString().split('T')[0]);
-      $("#detalle-fin").text(info.event.end 
-        ? info.event.end.toISOString().split('T')[0] 
+      $("#detalle-fin").text(info.event.end
+        ? info.event.end.toISOString().split('T')[0]
         : info.event.start.toISOString().split('T')[0]
       );
       $("#evento-detalles table").removeClass("d-none");
