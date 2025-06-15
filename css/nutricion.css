@@ -71,21 +71,25 @@ input.form-control {
 .hidden {
   display: none !important;
 }
-/* ===== Botones ===== */
-button.btn {
+
+/*====== Botones y enlace ======*/
+a.btn, button.btn {
   font-size: 1.2rem;
   font-weight: bold;
   padding: 0.75rem;
   border-radius: 0.75rem;
   box-shadow: 0 4px 10px rgba(229, 9, 20, 0.4);
   transition: all 0.3s ease-in-out;
+  display: inline-block; 
+  color: white; 
+  background-color: #6c757d; 
+  border: none;
 }
 
-button.btn:hover {
+a.btn:hover, button.btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(229, 9, 20, 0.6);
 }
-
 /* ===== Secciones de Información ===== */
 .info-section {
   background: rgba(255, 255, 255, 0.05);

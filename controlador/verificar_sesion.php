@@ -3,7 +3,7 @@ session_start();
 
 // Verifica si el usuario ha iniciado sesión
 if (!isset($_SESSION['id_usuario'])) {
-    header("Location: ../index.html");
+    header("Location: ../../index.html");
     exit();
 }
 

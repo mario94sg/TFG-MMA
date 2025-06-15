@@ -43,67 +43,86 @@ $(document).ready(function () {
         }
 
         let html = '<div class="row">';
-        data.forEach(hit => {
+        data.forEach((hit, index) => {
           const receta = hit.recipe;
           const calorias = Math.round(receta.calories);
           const porciones = Math.max(1, receta.yield);
           const porPorcion = Math.round(calorias / porciones);
           const ingredientes = receta.ingredientLines.map(i => `<li>${i}</li>`).join("");
+          const ingredientesTextoPlano = receta.ingredientLines.join('\n');
 
           html += `
-            <div class="col-md-4 mb-4">
-              <div class="card h-100">
-                <img src="${receta.image}" class="card-img-top" alt="${receta.label}">
-                <div class="card-body">
-                  <h5 class="card-title">${receta.label}</h5>
-                  <p>
-                    <strong>Porciones:</strong> ${porciones}<br>
-                    <strong>Calorías por porción:</strong> ${porPorcion}<br>
-                    <strong>Tiempo:</strong> ${receta.totalTime} min<br>
-                    <strong>Ingredientes:</strong><ul>${ingredientes}</ul>
-                  </p>
-                  <a href="${receta.url}" target="_blank" class="btn btn-outline-primary">Ver receta</a>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <img src="${receta.image}" class="card-img-top" alt="${receta.label}">
+              <div class="card-body" id="receta-${index}">
+                <h5 class="card-title">${receta.label}</h5>
+                <p>
+                  <strong>Porciones:</strong> ${porciones}<br>
+                  <strong>Calorías por porción:</strong> ${porPorcion}<br>
+                  <strong>Tiempo:</strong> ${receta.totalTime} min<br>
+                  <strong>Ingredientes:</strong>
+                  <ul class="ingredientes-lista" data-original="${ingredientesTextoPlano}" data-id="${index}">
+                    ${ingredientes}
+                  </ul>
+                </p>
+                
+                <a href="${receta.url}" target="_blank" class="btn btn-outline-primary">Ver receta</a>
+                <button class="btn btn-secondary mt-2 btn-traducir" data-id="${index}">Traducir</button>
                 </div>
-              </div>
+                
             </div>
-          `;
+          </div>
+        `;
         });
         html += '</div>';
 
         $('#resultadosRecetas').html(html);
-
-        
-        traducirResultados();
       },
       error: function (xhr, status, error) {
         $('#resultadosRecetas').html(`<div class="alert alert-danger">Error: ${error}<br>${xhr.responseText}</div>`);
       }
     });
   });
+ 
 
-  
-  function traducirResultados() {
-  const textoOriginal = $('#resultadosRecetas').text();
+  // Traducción al pulsar el botón
+  $(document).on('click', '.btn-traducir', function () {
+    const index = $(this).data('id');
+    const $ul = $(`.ingredientes-lista[data-id="${index}"]`);
+    const $btn = $(this);
 
-  $.ajax({
-    url: "http://localhost:5000/translate",  
-    method: "POST",
-    contentType: "application/json",
-    data: JSON.stringify({
-      q: textoOriginal,
-      source: "en",
-      target: "es",
-      format: "text"
-    }),
-    success: function (data) {
-      if (data.translatedText) {
-        $('#resultadosRecetas').text(data.translatedText);
-      }
-    },
-    error: function (xhr, status, error) {
-      console.error("Error al traducir:", error, xhr.responseText);
+    if ($btn.data('traducido')) {
+      const originalTexto = $ul.data('original');
+      const originalHTML = originalTexto.split('\n').map(i => `<li>${i}</li>`).join('');
+      $ul.html(originalHTML);
+      $btn.data('traducido', false).text('Traducir');
+      return;
     }
+
+    const textoOriginal = $ul.data('original');
+    $btn.prop('disabled', true).text('Traduciendo...');
+
+    $.ajax({
+      url: '../../api/traducir.php',
+      method: 'POST',
+      dataType: 'json',
+      data: { texto: textoOriginal },
+      success: function (response) {
+        if (response.traduccion) {
+          const traducido = response.traduccion;
+          const traducidoHTML = traducido.split('\n').map(i => `<li>${i}</li>`).join('');
+          $ul.html(traducidoHTML);
+          $btn.data('traducido', true).text('Mostrar original');
+        } else {
+          $btn.text('Error al traducir');
+        }
+        $btn.prop('disabled', false);
+      },
+      error: function () {
+        $btn.text('Error al traducir').prop('disabled', false);
+      }
+    });
   });
-}
 
 });

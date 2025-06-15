@@ -1,41 +1,28 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo 'Método no permitido';
+header('Content-Type: application/json');
+
+if (!isset($_POST['texto'])) {
+    echo json_encode(['error' => 'No se recibió texto para traducir.']);
     exit;
 }
 
-$input = json_decode(file_get_contents('php://input'), true);
-$texto = $input['texto'] ?? '';
+$texto = $_POST['texto'];
+$from = 'en';
+$to = 'es';
 
-if (empty($texto)) {
-    http_response_code(400);
-    echo 'No se recibió texto para traducir';
-    exit;
+function traducirLingva($texto, $from = 'en', $to = 'es') {
+    //  se usa rawurlencode para evitar problemas con espacios
+    $url = "https://lingva.ml/api/v1/$from/$to/" . rawurlencode($texto);
+
+    $response = file_get_contents($url);
+    if ($response === FALSE) {
+        return '[Error en traducción]';
+    }
+
+    $data = json_decode($response, true);
+    return $data['translation'] ?? '[Sin resultado]';
 }
 
-$apiUrl = 'https://translate.argosopentech.com/translate';
+$traduccion = traducirLingva($texto, $from, $to);
 
-$data = [
-    'q' => $texto,
-    'source' => 'en',
-    'target' => 'es',
-    'format' => 'text',
-];
-
-$ch = curl_init($apiUrl);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    'Content-Type: application/json'
-]);
-$response = curl_exec($ch);
-
-if (curl_errno($ch)) {
-    echo json_encode(['error' => 'Error de conexión con la API']);
-    curl_close($ch);
-    exit;
-}
-curl_close($ch);
-echo $response;
+echo json_encode(['traduccion' => $traduccion]);
